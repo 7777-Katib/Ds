@@ -1,0 +1,330 @@
+###Linear Array
+
+####1
+
+def shiftLeft(s,k):
+
+    i=0
+    for e in range(i,k):
+        s[i]=s[i+3]
+        i+=1
+    i=3
+    for i in range(k,k+3):
+        s[i]=0
+        i+=1
+    print(s)
+
+
+
+source=[10,20,30,40,50,60]
+shiftLeft(source,3)
+
+
+####2
+
+def rotateLeft(s,k):
+
+    temp=[0]*k
+    for e in range(0,k):
+        temp[e]=s[e]
+        e+=1
+
+    i=len(s)-1
+    j=k
+    for e in range(k,i+1):
+        s[j-1]=s[i]
+        j-=1
+        i-=1
+    i = len(s)
+    p=0
+    for e in range(k,i):
+        s[e]=temp[p]
+        e+=1
+        p+=1
+
+    print(s)
+
+
+
+
+
+source=[10,20,30,40,50,60]
+rotateLeft(source,3)
+
+
+
+####3
+
+def remove(s,size,index):
+
+    idx=index
+    i=index+1
+    for e in range(index,size):
+        s[idx]=s[i]
+        i+=1
+        idx+=1
+
+    print(source)
+
+
+
+source=[10,20,30,40,50,0,0]
+remove(source,5,2)
+
+
+
+####4
+
+
+def removeAll(s,size,target):
+     newArr=[0]*len(s)
+     i=0
+     j=0
+     for i in range(len(s)):
+         if s[i]!=target:
+            newArr[j]=s[i]
+            i+=1
+            j+=1
+
+     print(newArr)
+source=[10,2,30,2,50,2,2,0,0]
+removeAll(source,7,2)
+
+
+####5
+
+def splittingArray(s):
+    Flag = False
+    i = 1
+    for e in range(i,len(s)-1):
+        total1 = 0
+        total2 = 0
+        j = 0
+        for k in range(j,len(s)):
+            if j < i :
+                total1 += s[j]
+            else:
+                total2 += s[j]
+            j+=1
+        if total1 == total2:
+            Flag = True
+            break
+        i+=1
+    return Flag
+
+Array1=[1, 1, 1, 2, 1]
+Array2=[2, 1, 1, 2, 1]
+Array3=[10, 3, 10, 2, 1]
+
+print(splittingArray(Array1))
+print(splittingArray(Array2))
+print(splittingArray(Array3))
+
+
+####6
+
+def groups(s):
+    container = [0]*s
+    Result = container*s
+    a = s-1
+    total = 0
+    for i in range(0,len(Result),s):
+        for j in range(1):
+            container[a] += 1+total
+            total = container[a]
+            a-=1
+        for k in range(len(container)):
+            Result[i+k] = container[k]
+    return (Result)
+
+n1=2
+n2=3
+n3=4
+print(groups(n1))
+print(groups(n2))
+print(groups(n3))
+
+
+
+####7
+
+def Maxbunch(s):
+    MaxCount = 0
+    SUM = 1
+    for i in range(len(s)-1):
+        if s[i] == s[i+1] and s!=len(s)-1:
+             SUM+= 1
+             if SUM>MaxCount:
+                MaxCount=SUM
+        elif s[i]==s[i+1] and i==len(s)-1:
+            if SUM>MaxCount:
+                MaxCount=SUM
+        else:
+            SUM=1
+    return MaxCount
+
+
+bunch1=[1,2,2,3,4,4,4]
+bunch2=[1,1,2,2,1,1,1,1]
+print(Maxbunch(bunch1))
+print(Maxbunch(bunch2))
+
+
+
+####8
+
+
+def Repetition(s):
+    Flag= False
+    arr = [0] * len(s)
+    countCheck = [0] * len(s)
+    i = 0
+    j = 0
+    for p in range(len(s)):
+        if s[p] not in countCheck:
+            countCheck[i] = s[p]
+            i += 1
+            total = 0
+            for q in range(len(s)):
+                if s[p] == s[q]:
+                    total += 1
+            if total > 1:
+                arr[j] = total
+                j += 1
+
+    for r in range(len(arr)):
+        if arr[r] != 0:
+            for t in range(len(arr)):
+                if t != r:
+                    if arr[r] == arr[t]:
+                        Flag = True
+
+    if Flag == True:
+        return True
+    else:
+        return False
+
+
+source = [4, 5, 6, 6, 4, 3, 6, 4]
+source1 = [3, 4, 6, 3, 4, 7, 4, 6, 8, 6, 6]
+print(Repetition(source))
+print(Repetition(source1))
+
+
+
+
+###Circular Array
+####1
+
+def crick(s, start, size):
+    index = start
+    last = (start + size - 1) % len(s)
+
+    while index != last:
+        if s[index] == s[last]:
+            index = (index + 1) % len(s)
+            last = (last - 1) % len(s)
+            if s[index] == s[(len(s) - 1)]:
+                print("True")
+
+
+
+        else:
+            print("False")
+            break
+
+
+cric = [20, 10, 0, 0, 0, 10, 20, 30]
+cric1 = [10, 20, 0, 0, 0, 10, 20, 30]
+crick(cric, 5, 5)
+crick(cric1, 5, 5)
+
+
+
+
+
+####2
+
+
+def intersec(arr1,arr2,start1,start2,size1,size2):
+    Main=[]
+    index1=start1
+    i=0
+    while i<size1:
+        if arr1[index1] not in Main:
+            j = 0
+            index2 = start2
+            while j < size2:
+                if arr2[index2] not in Main:
+                    if arr1[index1] == arr2[index2]:
+                        Main += [arr1[index1]]
+                j += 1
+                index2 = (index2+1) % len(arr2)
+        index1 = (index1 + 1) % len(arr1)
+        i+=1
+    return Main
+
+
+
+
+source1 = [40,50,0,0,0,10,20,30]
+source2 = [10,20,5,0,0,0,0,0,5,40,15,25]
+insertOutput = intersec(source1, source2, 5, 8, 5 , 7)
+print(insertOutput)
+
+
+
+
+
+####3
+def randomNumber(first, last):
+    import random
+    number = random.randint(first, last)
+    return number
+
+
+def chair_game(TotalChair):
+    if TotalChair == 1:
+        print("Winner 1")
+    else:
+        new = [0]*TotalChair
+        for i in range(1, TotalChair+1):
+            new[i-1] = i
+
+
+        def workspace(s):
+            eliminated = False
+            another = []
+            generator = randomNumber(0,3)
+            if generator == 1:
+                eliminated = True
+                if len(s)%2 == 0:
+                    s[int((len(s)/2)-1)] = 0
+                else:
+                    s[int((len(s)-1)/2)] = 0
+            else:
+                def rotateLeft(array):
+                    j = 0
+                    new2 = s[0]
+                    while j < len(array) - 1:
+                        array[j] = array[j + 1]
+                        j += 1
+                    array[len(array) - 1] =new2
+
+                rotateLeft(s)
+                print("Array rotated left", s)
+            if eliminated == True:
+                for x in range(len(s)):
+                    if s[x] != 0:
+                        another += [s[x]]
+                s = another
+                print("Middle position eliminated.\n"
+                      "New array", s)
+            if len(s) != 1:
+                workspace(s)
+            else:
+                print("Winner", s[0])
+        workspace(new)
+
+n=7
+chair_game(n)

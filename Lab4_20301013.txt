@@ -1,0 +1,221 @@
+#Task1
+class StackUsingArray:
+     def __init__(self):
+         self.stack=[]
+         self.index=-1
+         self.count=[]
+
+     def push(self,ele,ind):
+         self.stack+=[ele]
+         self.count+=[ind]
+         self.index+=1
+
+     def peek(self):
+         if self.index==-1:
+             return "The Stack is Empty!"
+         else:
+             return self.stack[self.index]
+
+     def peekposition(self):
+         if self.index==-1:
+             return "The Stack is Empty!"
+         else:
+             return self.count[self.index]
+
+     def pop(self):
+         value=self.stack[self.index]
+         self.stack=self.stack[:-1]
+         self.count=self.count[:-1]
+         self.index-=1
+         return value
+
+class Searching:
+    def __init__(self,text):
+        self.text=text
+
+    def search(self):
+        c=0
+        flag=True
+        access=StackUsingArray()
+        parentheses=["[","]","(",")","{","}"]
+        for i in self.text:
+            c+=1
+            if i in parentheses:
+                if i=="(" or i=="{" or i=="[":
+                    access.push(i,c)
+                elif access.index==-1:
+                    flag=False
+                    print("This Expression is NOT correct.")
+                    print("Error at character #",c,".",i,"not opened")
+                    break
+                elif i==")":
+                    popping=access.peek()
+                    if popping!="(":
+                        flag=False
+                        print("This Expression is NOT correct.")
+                        print("Error at character #",access.peekposition(),".",popping, "not closed")
+                        break
+                    else:
+                        access.pop()
+
+                elif i=="]":
+                    popping = access.peek()
+                    if popping != "[":
+                        flag = False
+                        print("This Expression is NOT correct.")
+                        print("Error at character #", access.peekposition(), ".",popping, "not closed")
+                        break
+                    else:
+                        access.pop()
+
+
+                elif i == "}":
+                    popping = access.peek()
+                    if popping != "{":
+                        flag = False
+                        print("This Expression is NOT correct.")
+                        print("Error at character #", access.peekposition(), ".",popping, "not closed")
+                        break
+                    else:
+                        access.pop()
+        if flag==True and access.index==-1:
+                print("The expression is correct.")
+
+
+
+#Task2
+class Node:
+    def __init__(self,value,position,next):
+        self.value=value
+        self.position=position
+        self.next=next
+
+class StackUsingLinkedList:
+    def __init__(self):
+        self.head=None
+        self.address=None
+
+    def push(self,value,index):
+        new=Node(value,index,None)
+        if self.head==None:
+            self.head=new
+            self.address=new
+        else:
+            new.next=self.address
+            self.address=new
+            self.head=new
+    def peek(self):
+        if self.head==None:
+            return "The Stack is Empty"
+        else:
+            return self.head.value
+
+    def peekposition(self):
+
+            return self.head.position
+
+    def pop(self):
+        val=self.head
+        self.address=self.address.next
+        self.head=self.head.next
+        val.value=None
+        val.position=None
+        val=None
+    def check(self):
+        return self.head
+
+class SearchingInLinkedList:
+    def __init__(self,text):
+        self.text=text
+
+    def searchInLinkedList(self):
+        c=0
+        flag=True
+        access=StackUsingLinkedList()
+        parentheses=["[","]","(",")","{","}"]
+        for i in self.text:
+            c+=1
+            if i in parentheses:
+                if i=="(" or i=="{" or i=="[":
+                    access.push(i,c)
+                elif access.check()==None:
+                    flag=False
+                    print("This Expression is NOT correct.")
+                    print("Error at character #",c,".",i,"not opened")
+                    break
+                elif i==")":
+                    popping=access.peek()
+                    if popping!="(":
+                        flag=False
+                        print("This Expression is NOT correct.")
+                        print("Error at character #",access.peekposition(),".",popping, "not closed")
+                        break
+                    else:
+                        access.pop()
+
+                elif i=="]":
+                    popping = access.peek()
+                    if popping != "[":
+                        flag = False
+                        print("This Expression is NOT correct.")
+                        print("Error at character #", access.peekposition(), ".",popping, "not closed")
+                        break
+                    else:
+                        access.pop()
+
+
+                elif i == "}":
+                    popping = access.peek()
+                    if popping != "{":
+                        flag = False
+                        print("This Expression is NOT correct.")
+                        print("Error at character #", access.peekposition(), ".",popping, "not closed")
+                        break
+                    else:
+                        access.pop()
+        if flag==True:
+                print("The expression is correct.")
+
+
+
+
+
+
+
+
+
+print("Stack using array")
+print("Example-1: 1+2*(3/4)")
+expession1 = Searching("1+2*(3/4)")
+expession1.search()
+print("\n")
+print("Example-2: 1+2*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession2 = Searching("1+2*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession2.search()
+print("\n")
+print("Example-3: 1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14")
+expession3 = Searching("1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14")
+expession3.search()
+print("\n")
+print("Example-4: 1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession4 = Searching("1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession4.search()
+
+
+print("\n")
+print("Stack Using Linked List")
+print("Example-1: 1+2*(3/4)")
+expession5 =SearchingInLinkedList("1+2*(3/4)")
+expession5.searchInLinkedList()
+print("\n")
+print("Example-2: 1+2*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession6 = SearchingInLinkedList("1+2*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession6.searchInLinkedList()
+print("\n")
+print("Example-3: 1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14")
+expession7 = SearchingInLinkedList("1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14")
+expession7.searchInLinkedList()
+print("\n")
+print("Example-4: 1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession8 = SearchingInLinkedList("1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14")
+expession8.searchInLinkedList()

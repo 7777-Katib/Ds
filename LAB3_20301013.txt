@@ -1,0 +1,207 @@
+#Task 1
+class Node:
+    def __init__(self, v,n,p):
+        self.value=v
+        self.nextAddress=n
+        self.previousAddress=p
+
+class DoublyList:
+#Task 2
+
+    #1....
+    def __init__(self,arr):
+        if len(arr)==0:
+            print("Array cannot be empty")
+        else:
+            self.head=None
+            dummyHead=Node(None,None,None)
+            self.head=dummyHead
+            s=None
+            n=dummyHead
+            p= dummyHead
+            for i in arr:
+                s=Node(i,None,None)
+                s.previousAddress=p
+                p=s
+                n.nextAddress=s
+                n=s
+            s.nextAddress =dummyHead
+            dummyHead.previousAddress=s
+
+    #2....
+    def showList(self):
+        s= self.head.nextAddress
+        if s.value==None:
+            print("Empty List")
+        else:
+            while s is not self.head:
+                print(s.value)
+                s=s.nextAddress
+            print()
+
+
+
+    #3....
+    def insert(self,new):
+        s1=self.head.nextAddress
+        flag=False
+        while s1 is not self.head:
+            if s1.value is new:
+                print("This element is already in the list!")
+                flag=True
+                break
+            s1=s1.nextAddress
+        if flag is False:
+            s2=self.head.previousAddress
+            newNode=Node(new,None,None)
+            newNode.previousAddress=s2
+            newNode.nextAddress=self.head
+            s2.nextAddress=newNode
+            self.head.previousAddress=newNode
+            self.showList()
+
+
+
+    #4.....
+    def insertAnyIndex(self,new,index):
+        s=self.head.nextAddress
+        if s.value is None:
+            print("Array cannot be empty")
+        else:
+            count=0
+            s1 = self.head.nextAddress
+            while s1 is not self.head:
+                count+=1
+                s1=s1.nextAddress
+            if index<0 or index>(count - 1):
+                print("Invalid index")
+            else:
+                Flag=False
+                s2 =self.head.nextAddress
+                while s2 is not self.head:
+                    if s2.value is new:
+                        print("This value is already in the list!")
+                        Flag=True
+                        break
+                    s2=s2.nextAddress
+                if Flag== False:
+                    s3=self.head.nextAddress
+                    i=0
+                    while s3 is not self.head:
+                        if i==index:
+                            newNode = Node(new,None,None)
+                            newNode.previousAddress=s3.previousAddress
+                            newNode.nextAddress=s3
+                            s3.previousAddress.nextAddress=newNode
+                            s3.previousAddress=newNode
+
+                        s3=s3.nextAddress
+                        i+=1
+                    self.showList()
+
+
+    #5....
+    def remove(self,index):
+        s1=self.head.nextAddress
+        if s1.value is None:
+            print("List cannot be empty")
+        else:
+            count=0
+            s=self.head.nextAddress
+            while s is not self.head:
+                count+=1
+                s=s.nextAddress
+            if index<0 or index>(count - 1):
+                print("Invalid index")
+            else:
+                s2=self.head.nextAddress
+                i=0
+                while s2 is not self.head:
+                    if i is index:
+                        s2.previousAddress.nextAddress=s2.nextAddress
+                        s2.nextAddress.previousAddress=s2.previousAddress
+                        s2 = None
+                        break
+                    s2=s2.nextAddress
+                    i+=1
+                self.showList()
+
+
+
+
+    #6.....
+    def removeKey(self,delete):
+        s=self.head.nextAddress
+        if s.value is None:
+            print("List cannot be empty")
+        else:
+            s1=self.head.nextAddress
+            Flag=False
+            while s1 is not self.head:
+                if s1.value is delete:
+                    Flag=True
+                    n=s1.value
+                    s1.previousAddress.nextAddress=s1.nextAddress
+                    s1.nextAddress.previousAddress=s1.previousAddress
+                    s1=None
+                    return "Deleted key value: " + str(n)
+                s1=s1.nextAddress
+            if Flag == False:
+                return "No key found in the list"
+
+
+
+
+
+
+
+
+
+##TESTER CLASS
+#1
+
+array1=[1,2,3,4,5,6]
+array2=DoublyList(array1)
+
+#2
+
+print("\n#Showing the link list:")
+array2.showList()
+
+#3
+
+print("\n#Inserting element:")
+print("Example-1:")
+array2.insert(6)
+print("Example-2:")
+array2.insert(7)
+
+
+#4
+
+print("\n#Inserting element at any index:")
+print("\nExample 1:")
+array2.insertAnyIndex(6,10)
+print("\nExample 2:")
+array2.insertAnyIndex(6,2)
+print("\nExample 3:")
+array2.insertAnyIndex(99,4)
+
+#5
+
+print("\n#Removing index:")
+print("Example 1:")
+array2.remove(8)
+print("Example 2:")
+array2.remove(4)
+
+
+#6
+
+print("\n#Remove key#")
+print("Example 1:")
+print(array2.removeKey(8))
+print("Example 2:")
+print(array2.removeKey(5))
+print("Example 3:")
+array2.showList()

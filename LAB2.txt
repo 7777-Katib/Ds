@@ -1,0 +1,175 @@
+#Task 1
+class Node:
+    def __init__(self, element, next):
+        self.value = element
+        self.nextAddress = next
+
+class MyList:
+#Task 2
+
+    #1.....
+    def __init__(self,array):
+        self.head=None
+        tail=None
+
+        if array==[]:
+            print("Array can not be empty")
+        else:
+            for i in array:
+                recentNode=Node(i,None)
+                if self.head==None:
+                    self.head=recentNode
+                    tail=recentNode
+                else:
+                    tail.nextAddress=recentNode
+                    tail=recentNode
+
+
+
+    #2.....
+    def showList(self):
+        n=self.head
+        while n is not None:
+            print(n.value)
+            n=n.nextAddress
+
+
+
+    #3.....
+    def isEmpty(self):
+        if self.head==None:
+            print("List is Empty")
+        else:
+            print("List is not Empty")
+
+
+
+    #4.....
+    def clear(self):
+        n=self.head
+        while n is not None:
+            temp=n.nextAddress
+            n.value=None
+            n.nextAddress=None
+            n=temp
+
+
+    #5.....
+    def insert(self, newElement):
+        elemNotExist = True
+        n=self.head
+        while n.nextAddress is not None:
+            if n.value==newElement:
+                elemNotExist=False
+                break
+            n=n.nextAddress
+        if elemNotExist==True:
+            newNode=Node(newElement, None)
+            n.nextAddress = newNode
+
+        else:
+            print("Element Already exists and does not insert the key")
+
+
+    #6.....
+    def insertAnyindex(self, newElement, index):
+            elemNotExist = True
+            n=self.head
+            count = 0
+            while n is not None:
+                if n.value == newElement:
+                    elemNotExist = False
+                    break
+                count += 1
+                n=n.nextAddress
+            if elemNotExist == True:
+                if index < 0 or index > count:
+                    raise Exception("Invalid Index")
+                else:
+                    newNode = Node(newElement, None)
+                    if index==0:
+                        n=self.head
+                        newNode.nextAddress=n
+                        self.head = newNode
+                    elif index==(count - 1):
+                        n = self.head
+                        while n is not None:
+                            n = n.nextAddress
+                        n.nextAddress = newNode
+                    else:
+                        n= self.head
+                        for i in range(0,index-1):
+                            n = n.nextAddress
+                        newNode.nextAddress = n.nextAddress
+                        n.nextAddress = newNode
+                    print("----------------")
+            else:
+                print("Element Already exists and does not insert the key")
+
+
+    #7.....
+    def remove(self,deletekey):
+            count = 0
+            n= self.head
+            while n is not None:
+                n= n.nextAddress
+                count += 1
+            if deletekey == 0:
+                n= self.head
+                newHead = n.nextAddress
+                self.head = newHead
+                obj=n.value
+                n= None
+                return obj
+            elif deletekey == count-1:
+                n= self.head
+                for i in range(0,count-2):
+                    n = n.nextAddress
+                temp = n
+                tempvalue = (n.nextAddress).value
+                n.nextAddress = None
+                temp = temp.nextAddress
+                temp = None
+                return tempvalue
+            else:
+                n= self.head
+                for i in range(0,deletekey-1):
+                     n= n.nextAddress
+                temp = n.nextAddress
+                tempvalue = temp.value
+                n.nextAddress = temp.nextAddress
+                temp = None
+                return tempvalue
+
+
+
+
+#Tester....
+#1
+array=[1,2,3,4,5,6]
+l1=MyList(array)
+
+#2
+l1.showList()
+
+#3
+l1.isEmpty()
+
+#4
+l1.clear()
+
+#5
+#previous array was cleared.So new is array1 have to create
+array1=[8,9,10,11,12,13]
+l2=MyList(array1)
+l2.insert(7)
+l2.showList()
+
+#6
+l2.insertAnyindex(40,4)
+l2.showList()
+
+
+#7
+l2.remove(2)
+l2.showList()
