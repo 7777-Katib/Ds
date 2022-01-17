@@ -1,0 +1,256 @@
+#######1########
+#Very Easy
+#a....
+
+def FactorialRecursive(number):
+    if number==0 or number==1:
+        return 1
+    else:
+        return number*FactorialRecursive(number-1)
+print("###Very Easy Outputs####")
+print("* a. Factorial Numbers:*")
+print("10!=",FactorialRecursive(10))
+print("5!=",FactorialRecursive(5))
+print("0!=",FactorialRecursive(0))
+
+
+#b....
+
+def FibonacciRecursive(number):
+    if number==0:
+        return 0
+    elif number==1:
+        return 1
+    else:
+        return FibonacciRecursive(number-1)+FibonacciRecursive(number-2)
+print("\n* b. Fibonacci Numbers:*")
+print("1st Fibonacci Number:",FibonacciRecursive(1))
+print("5th Fibonacci Number:",FibonacciRecursive(5))
+print("15th Fibonacci Number:",FibonacciRecursive(15))
+
+
+
+#c....
+
+def ArrayRecursive(a):
+    if a==[]:
+       return 0
+
+    else:
+        print(a[0])
+        return ArrayRecursive(a[1:])
+
+
+print("\n* c. Array Elements*")
+print("Number Array elements")
+ArrayRecursive([10,20,30,40,50])
+print("Name Array Elements:")
+ArrayRecursive(["John","Ryan","Tofy","Chris","Micheal"])
+
+
+#d....
+def powerN(num,pow):
+    if pow==0:
+        return 1
+    else:
+        AfterPowered=powerN(num,pow-1)
+        return AfterPowered*num
+print("\n* d. Power and Base task: ")
+print("3 with the power 3 is:",powerN(3,3))
+print("10 with the power 5 is:",powerN(10,5))
+print("100 with the power 1 is:",powerN(100,1))
+print("100 with the power 0 is:",powerN(100,0))
+print("7 with the power 2 is:",powerN(7,2))
+
+
+
+
+########2##########
+#Easy
+#a....
+def DecimalConvertsBinary(num):
+    if num==0:
+        return ""
+
+    else:
+        x=str(num%2)
+        return DecimalConvertsBinary(num // 2)+x
+print("\n###Easy Outputs####")
+print("* a. decimal to binary:")
+print("10's Binary number is:",DecimalConvertsBinary(10))
+print("2's Binary number is:",DecimalConvertsBinary(2))
+print("17's Binary number is:",DecimalConvertsBinary(17))
+
+
+
+#singly linked list for b and c
+class Node:
+    def __init__(self, v, n):
+        self.value = v
+        self.next = n
+
+
+class MyList:
+    def __init__(self, a):
+        self.head = None
+        tail = None
+
+        for i in range(0, len(a)):
+            newNode = Node(a[i], None)
+            if self.head == None:
+                self.head = newNode
+                tail = newNode
+            else:
+                tail.next = newNode
+                tail = newNode
+
+    #b.....
+    def headOfNode(self):
+        return self.addNodeElements(self.head)
+
+
+    def addNodeElements(self,node):
+
+        if node is None:
+            return 0
+        else:
+            return node.value+self.addNodeElements(node.next)
+
+
+    #c.......
+    def headOfNo(self):
+
+        return self.reverse(self.head)
+    def reverse(self,node):
+
+        if node is None:
+            return 0
+        else:
+            nw=node.next
+            self.reverse(nw)
+            print(node.value)
+
+
+
+
+print("\n* b. Add elements of Linked Lists Nodes")
+a = [1, 2, 3, 4, 5]
+l1 = MyList(a)
+print(l1.headOfNode())
+
+print("\n* c. reversed order")
+a = [10, 20, 30, 40, 50]
+l1 = MyList(a)
+l1.headOfNo()
+
+
+
+
+
+###### 3 ######
+###Medium###
+
+def hocBuilder(height):
+    if height==0:
+        return 0
+    elif height==1:
+        return 8
+    else:
+        return 5+hocBuilder(height-1)
+print("\n#######Medium outputs#######")
+print("* card height task ")
+print("card needs for height 0:",hocBuilder(0))
+print("card needs for height 0:",hocBuilder(1))
+print("card needs for height 0:",hocBuilder(2))
+print("card needs for height 0:",hocBuilder(5))
+
+
+##### 4 #####
+###a####
+def patternLeft(num,i):
+    if num==i:
+        return
+    else:
+        def recursivePattern(num,i,j=0):
+            if j==i+1:
+                print()
+                return
+            else:
+                print(j+1,end=" ")
+                recursivePattern(num,i,j+1)
+
+        recursivePattern(num,i)
+        patternLeft(num,i+1)
+
+print("\n######Hard outputs#########")
+print("*Pattern Left")
+patternLeft(5,0)
+
+
+###b###
+
+def patternRight(num,i=0):
+    if i==num:
+        return
+    else:
+        def recursivePattern(num,i,j=1,k=1):
+            if j==num+1:
+                print()
+                return
+            elif j<(num-i):
+                print(" ",end=" ")
+                recursivePattern(num,i,j+1)
+            else:
+                print(k,end=" ")
+                recursivePattern(num,i,j+1,k+1)
+        recursivePattern(num,i)
+        return patternRight(num,i+1)
+print("\n*Pattern Right")
+patternRight(5)
+
+
+
+
+###5###
+###Very Hard#####
+
+class FinalQ:
+    def print(self,array,idx):
+        if idx<len(array):
+            profit=self.calcProfit(array[idx])
+            print("Investment:",array[idx],";","Profit:",profit)
+        else:
+            return "no index"
+
+    def multiply(self,x,y):
+        if x<=0:
+            return 0
+        elif y<=0:
+            return 0
+        else:
+            return x+self.multiply(x,y-1000)
+
+
+
+    def calcProfit(self,investment):
+       if investment<=25000:
+           return "No profit because you can not invest this amount"
+       elif investment<=100000:
+           temp=investment-25000
+           profit=self.multiply(45,temp)/1
+           return profit
+       else:
+           temp2=investment-100000
+           profit=self.multiply(80,temp2)/1
+           return profit+self.calcProfit(100000)
+
+
+print("\n#####very Hard Tasks######")
+print("*Investment Profit Task")
+array=[25000,100000,250000,350000,100]
+f=FinalQ()
+f.print(array,0)
+f.print(array,1)
+f.print(array,2)
+f.print(array,3)
+f.print(array,4)

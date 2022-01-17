@@ -1,0 +1,232 @@
+#Task1
+
+def selection_sort(arr,index,idx):
+    length=len(arr)
+    if index==length or idx==length:
+        return -1
+    elif index<length-1:
+        low=index
+    while idx<length:
+        if arr[idx]<arr[low]:
+            low=idx
+        idx+=1
+    if index!=low:
+        temp=arr[index]
+        arr[index]=arr[low]
+        arr[low]=temp
+
+    selection_sort(arr,index+1,index+2)
+
+print("\nTask 1 - Selection Sort")
+array1=[6,3,8,2,-2,29]
+index=0
+idx=index+1
+selection_sort(array1,index,idx)
+print(array1)
+
+
+
+#Task2
+
+def insertion_sort(arr,index):
+    length=len(arr)
+    if index==length:
+        return -1
+    elif index<length:
+        idx=index-1
+        key=arr[index]
+    while arr[idx]>key and idx>=0:
+            arr[idx+1]=arr[idx]
+            idx-=1
+    arr[idx+1]=key
+    insertion_sort(array2,index+1)
+
+
+print("\nTask 2 - Insertion Sort")
+array2=[6,3,8,2,-2,29]
+index=0
+insertion_sort(array2,index)
+print(array2)
+
+#####Node Class for Task 3 & 4#######
+class Node:
+    def __init__(self, element, next):
+        self.value = element
+        self.nextAddress = next
+class MyList:
+    def __init__(self, a):
+        self.head = None
+        tail = None
+        for count in a:
+            object = Node(count, None)
+            if self.head == None:
+                self.head = object
+                tail = object
+            else:
+                tail.nextAddress = object
+                tail = object
+    def showList(self):
+        object = self.head
+        while object != None:
+            print(object.value , end = " ")
+            object = object.nextAddress
+        print()
+    def headNode(self):
+        return self.head
+
+#Task 3
+array3 = [-4,3,-5,2,1,4,6,5,-3,-2]
+singly1 = MyList(array3)
+sin1Head = singly1.headNode()
+
+def singlyBubbleSort(head):
+    obj = head.nextAddress
+    while obj!=None:
+        obj2 = head
+        while obj2 != obj:
+            if obj2.value > obj.value:
+                temp = obj2.value
+                obj2.value = obj.value
+                obj.value = temp
+            obj2 = obj2.nextAddress
+        obj = obj.nextAddress
+    return head
+singlyBubbleSort(sin1Head)
+print("\nTask 3 - Sort a singly linked sequential list using bubble sort algorithm.\n"
+      "List - [-4,3,-5,2,1,4,6,5,-3,-2]\n"
+      "After Bubble Sort the linked list looks like-")
+singly1.showList()
+
+#Task 4
+array4 = [-300,600,-400, 900,-100,300,100,-200]
+singly2 = MyList(array4)
+sin2Head = singly2.headNode()
+
+def singlySelectionSort(head):
+    obj = head
+    while obj!=None:
+        min = obj.value
+        minAddress = obj
+        obj2 = obj.nextAddress
+        while obj2 != None:
+            if obj2.value < min:
+                min = obj2.value
+                minAddress = obj2
+            obj2 = obj2.nextAddress
+        temp = obj.value
+        obj.value = minAddress.value
+        minAddress.value = temp
+        obj = obj.nextAddress
+    return head
+
+singlySelectionSort(sin2Head)
+print("\nTask 4 - Sort a singly linked sequential list using bubble sort algorithm.\n"
+      "List - [-300,600,-400, 900,,-100,300,100,-200]\n"
+      "After Bubble Sort the linked list looks like-")
+singly2.showList()
+
+
+#Task 5
+
+class Node2:
+    def __init__(self, value, next, previous):
+        self.value = value
+        self.nextAddress = next
+        self.prevAddress = previous
+class DoublyList:
+    def __init__(self,a):
+        self.head = None
+        next = None
+        prev = None
+        for i in a:
+            obj = Node2(i,None,None)
+            obj.prevAddress = prev
+            prev = obj
+            if self.head == None:
+                self.head = obj
+                next = obj
+            else:
+                next.nextAddress = obj
+                next = obj
+    def showList(self):
+        object = self.head
+        while object != None:
+            print(object.value, end=" ")
+            object = object.nextAddress
+        print()
+    def Dublyhead(self):
+        return self.head
+
+array5 = [-60,10,-50,5,2,-165,200,50,40,20,100]
+dubList = DoublyList(array5)
+dubhead = dubList.Dublyhead()
+
+def dubInsInsertion(head):
+    obj = head
+    while obj != None:
+        obj2 = obj.prevAddress
+        while obj2 != None:
+            if obj2.value > obj2.nextAddress.value:
+                temp = obj2.value
+                obj2.value = obj2.nextAddress.value
+                obj2.nextAddress.value = temp
+            else:
+                break
+            obj2 = obj2.prevAddress
+        obj = obj.nextAddress
+    return head
+
+dubInsInsertion(dubhead)
+print("\nTask 5 - Sort a DOUBLY linked sequential list using insertion sort algorithm.\n"
+      "List - [-60,10,-50,5,2,-165,200,50,40,20,100]\n"
+      "After Insertion Sort the DOUBLY linked list looks like-")
+dubList.showList()
+
+
+
+
+
+#Task 6
+
+def binaryLoop(array,value, left, right):
+    if left>right:
+        return -1
+    else:
+        mid = (left+right)//2
+        if value == array[mid]:
+            return mid
+        elif value > array[mid]:
+            left = left + 1
+
+        else:
+            right = right-1
+        return binaryLoop(array,value, left , right)
+
+def binarysearch(array,value):
+    left = 0
+    right = len(array)-1
+    idx = binaryLoop(array,value,left,right)
+    return idx
+
+array6 = [1,2,3,4,5,6,7,8]
+print("\nTask 6 - Implement binary search algorithm RECURSIVELY.\n"
+        "List - [1,2,3,4,5,6,7,8]")
+print("2"'s position -',binarysearch(array6,2))
+print("5"'s position -',binarysearch(array6,5))
+print("7"'s position -',binarysearch(array6,7))
+
+
+
+
+#Task 7
+def FibonacciRecursive(number):
+    if number==0:
+        return 0
+    elif number==1:
+        return 1
+    else:
+        return FibonacciRecursive(number-1)+FibonacciRecursive(number-2)
+print("\nTask- 7 Fibonacci Numbers-")
+print("1st Fibonacci Number:",FibonacciRecursive(1))
+print("5th Fibonacci Number:",FibonacciRecursive(5))
+print("15th Fibonacci Number:",FibonacciRecursive(15))

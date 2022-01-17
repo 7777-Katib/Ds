@@ -1,0 +1,133 @@
+class Node:
+    def __init__(self, element, left, right, up):
+        self.element = element
+        self.left = left
+        self.right = right
+        self.up = up
+
+class MyTree:
+    def treeCreating(self, array, start):
+        if start<0 or start >= len(array) or array[start] == None:
+            return None
+        else:
+            newRootNode = Node(array[start],None,None, None)
+            newRootNode.left = self.treeCreating(array,2*start)
+            newRootNode.right = self.treeCreating(array,(2*start)+1)
+            if newRootNode.left != None:
+                newRootNode.left.up = newRootNode
+            if newRootNode.right != None:
+                newRootNode.right.up = newRootNode
+        return newRootNode
+
+#Task1....
+
+    def calculation(self, left, right):
+        if left>right:
+            return left
+        else:
+            return right
+    def heightCalculation(self, root):
+        if root == None:
+            return 0
+        else:
+            return 1+self.calculation(self.heightCalculation(root.left),self.heightCalculation(root.right))
+
+#Task2....
+
+    def levelCalculation(self,level):
+        if level.up == None:
+            return 0
+        else:
+            return 1+self.levelCalculation(level.up)
+
+#Task3....
+
+    def preOrderTraversal(self,root):
+        if root == None:
+            return
+        else:
+            print(root.element)
+            self.preOrderTraversal(root.left)
+            self.preOrderTraversal(root.right)
+
+#Task4...
+
+    def inOrderTraversal(self,root):
+        if root == None:
+            return
+        else:
+            self.inOrderTraversal(root.left)
+            print(root.element)
+            self.inOrderTraversal(root.right)
+
+#Task5....
+
+    def postOrderTraversal(self,root):
+        if root == None:
+            return
+        else:
+            self.postOrderTraversal(root.left)
+            self.postOrderTraversal(root.right)
+            print(root.element)
+
+#Task6....
+
+    def help(self,root, array): # using post order manner
+        if root == None:
+            return
+        else:
+            self.help(root.left,array)
+            self.help(root.right,array)
+            array += [root.element]
+
+    def sameORnot(self,root1,root2):
+        array1 = []
+        array2 = []
+        self.help(root1,array1)
+        self.help(root2,array2)
+        if array1 ==  array2:
+            return True
+        else:
+            return False
+
+#Task7.....
+
+    def copyTreeCreation(self,root):
+        if root == None:
+            return None
+        else:
+            newNode = Node(root.element,None,None,None)
+            left = self.copyTreeCreation(root.left)
+            newNode.left = left
+            right = self.copyTreeCreation(root.right)
+            newNode.right = right
+            return newNode
+
+
+
+###Tester Class###
+array1 = [None,50,57,17,20,91,None,128]
+array2 = MyTree()
+root = array2.treeCreating(array1,1)
+print("##The 1st tree is- [None,50,57,17,20,91,None,128]##\n")
+print("\nHeight of the tree is- ",array2.heightCalculation(root))
+print("\nLevel of a Node in a tree -",array2.levelCalculation(root.left.right))
+print("\nPre order Traversal")
+array2.preOrderTraversal(root)
+print("\nIn order Traversal")
+array2.inOrderTraversal(root)
+print("\nPost order Traversal")
+array2.postOrderTraversal(root)
+array3 = [None,50,5,60,20,30,50,20,10,None]
+array4 = MyTree()
+root2 = array4.treeCreating(array3,1)
+print("\n##The 2nd tree is- [None,50,5,60,20,30,50,20,10,None]##\n")
+print("Checking the tree is same or not-")
+print(array4.sameORnot(root,root2))
+print("\nCoping/Cloning a tree-")
+root3 = array2.copyTreeCreation(root)
+print("\nChecking the 1st tree root & 2rd tree node same or not")
+print(root==root3)
+print("Lets check the pre order traversing")
+array2.preOrderTraversal(root3)
+print("As root are not same and the pre Order Traversal result is same, so it's a new tree!")
